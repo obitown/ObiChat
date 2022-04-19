@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Button } from "react-native";
 
-export default class Chat extends React.Component {
+export default class Start extends React.Component {
     render() {
         let { name } = this.props.route.params;
         this.props.navigation.setOptions({ title: name })
