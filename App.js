@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+// import { View } from 'react-native';
 
 //import Screens
 import Start from './components/Start';
@@ -20,7 +20,7 @@ export default class HelloWorld extends React.Component {
     return (
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName='Screen1'
+          initialRouteName='Start'
         >
           <Stack.Screen
             name='Start'
