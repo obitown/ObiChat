@@ -1,6 +1,9 @@
 import React from "react";
-import { View, Text, Button, StyleSheet, TouchableOpacity, } from "react-native";
+import { View, Text, Button, StyleSheet, TouchableOpacity, ImageBackground } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
+
+//Background image goes here when i fucking figure it out
+
 
 
 export default class Start extends React.Component {
@@ -27,47 +30,48 @@ export default class Start extends React.Component {
         this.props.navigation.setOptions({ title: 'Welcome to Obi-Chat' });
         return (
             <View style={styles.container}>
-                <View style={styles.nameInput}>
-                    <TextInput
-                        style={styles.input}
-                        onChangeText={(text) => this.setState({ name: text })}
-                        value={this.state.name}
-                        placeholder="Choose a name"
+                <ImageBackground>
+                    <View style={styles.nameInput}>
+                        <TextInput
+                            style={styles.input}
+                            onChangeText={(text) => this.setState({ name: text })}
+                            value={this.state.name}
+                            placeholder="Choose a name"
+                        />
+                    </View>
+
+
+                    <View>
+                        <Text style={styles.chooseColor}> Choose Background Color: </Text>
+                    </View>
+
+                    <View style={styles.colorArray}>
+                        <TouchableOpacity
+                            style={styles.color1}
+                            onPress={() => this.changeBgColor(this.colors.dark)}>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.color2}
+                            onPress={() => this.changeBgColor(this.colors.purple)}>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.color3}
+                            onPress={() => this.changeBgColor(this.colors.blue)}>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.color4}
+                            onPress={() => this.changeBgColor(this.colors.green)}>
+                        </TouchableOpacity>
+                    </View>
+                    <Button
+                        title='Start Chatting'
+                        onPress={() => this.props.navigation.navigate('Chat', {
+                            name: this.state.name,
+                            bgColor: this.state.bgColor
+                        })}
                     />
-                </View>
-
-
-                <View>
-                    <Text style={styles.chooseColor}> Choose Background Color: </Text>
-                </View>
-
-                <View style={styles.colorArray}>
-                    <TouchableOpacity
-                        style={styles.color1}
-                        onPress={() => this.changeBgColor(this.colors.dark)}>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.color2}
-                        onPress={() => this.changeBgColor(this.colors.purple)}>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.color3}
-                        onPress={() => this.changeBgColor(this.colors.blue)}>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.color4}
-                        onPress={() => this.changeBgColor(this.colors.green)}>
-                    </TouchableOpacity>
-                </View>
-                <Button
-                    title='Start Chatting'
-                    onPress={() => this.props.navigation.navigate('Chat', {
-                        name: this.state.name,
-                        bgColor: this.state.bgColor
-                    })}
-                />
-
-            </View>
+                </ImageBackground>
+            </View >
         )
     }
 }
