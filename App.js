@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { View } from 'react-native';
 
 //import Screens
 import Start from './components/Start';
