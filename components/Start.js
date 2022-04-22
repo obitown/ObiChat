@@ -21,10 +21,10 @@ export default class Start extends React.Component {
 
     // options of Background Colors
     colors = {
-        lGreen: '#a8bf9a',
-        dGreen: '#2a4634',
-        lBlue: '#a6bbd2',
-        dBlue: '#182037'
+        Green: '#023020',
+        Purple: '#301934',
+        Blue: '#191970',
+        Gray: '#36454F'
     };
 
     render() {
@@ -54,19 +54,19 @@ export default class Start extends React.Component {
                         <View style={styles.colorArray}>
                             <TouchableOpacity
                                 style={styles.color1}
-                                onPress={() => this.changeBgColor(this.colors.lGreen)}>
+                                onPress={() => this.changeBgColor(this.colors.Green)}>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={styles.color2}
-                                onPress={() => this.changeBgColor(this.colors.dGreen)}>
+                                onPress={() => this.changeBgColor(this.colors.Purple)}>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={styles.color3}
-                                onPress={() => this.changeBgColor(this.colors.lBlue)}>
+                                onPress={() => this.changeBgColor(this.colors.Blue)}>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={styles.color4}
-                                onPress={() => this.changeBgColor(this.colors.dBlue)}>
+                                onPress={() => this.changeBgColor(this.colors.Gray)}>
                             </TouchableOpacity>
                         </View>
                         <Button
@@ -127,28 +127,28 @@ const styles = StyleSheet.create({
 
     },
     color1: {
-        backgroundColor: '#a8bf9a',
+        backgroundColor: '#023020',
         width: 50,
         height: 50,
         borderRadius: 25
     },
 
     color2: {
-        backgroundColor: '#2a4634',
+        backgroundColor: '#301934',
         width: 50,
         height: 50,
         borderRadius: 25
     },
 
     color3: {
-        backgroundColor: '#a6bbd2',
+        backgroundColor: '#191970',
         width: 50,
         height: 50,
         borderRadius: 25
     },
 
     color4: {
-        backgroundColor: '#182037',
+        backgroundColor: '#36454F',
         width: 50,
         height: 50,
         borderRadius: 25
