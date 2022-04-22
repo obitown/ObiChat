@@ -73,6 +73,8 @@ export default class Start extends React.Component {
                                 onPress={() => this.changeBgColor(this.colors.Blue)}>
                             </TouchableOpacity>
                             <TouchableOpacity
+                                accessibility={true}
+                                accessibilityLabel='Gray'
                                 style={styles.color4}
                                 onPress={() => this.changeBgColor(this.colors.Gray)}>
                             </TouchableOpacity>
