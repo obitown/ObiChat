@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Button, StyleSheet, TouchableOpacity, ImageBackground } from "react-native";
+import { View, Text, Pressable, StyleSheet, TouchableOpacity, ImageBackground } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
 //Background image goes here when i fucking figure it out
@@ -27,6 +27,7 @@ export default class Start extends React.Component {
         Gray: '#36454F'
     };
 
+
     render() {
         this.props.navigation.setOptions({ title: 'Welcome To Obi-Chat' });
         return (
@@ -43,6 +44,7 @@ export default class Start extends React.Component {
                                 onChangeText={(text) => this.setState({ name: text })}
                                 value={this.state.name}
                                 placeholder="Choose a name"
+                                placeholderTextColor='#595959'
                             />
                         </View>
 
@@ -53,14 +55,20 @@ export default class Start extends React.Component {
 
                         <View style={styles.colorArray}>
                             <TouchableOpacity
+                                accessibility={true}
+                                accessibilityLabel='Green'
                                 style={styles.color1}
                                 onPress={() => this.changeBgColor(this.colors.Green)}>
                             </TouchableOpacity>
                             <TouchableOpacity
+                                accessibility={true}
+                                accessibilityLabel='Purple'
                                 style={styles.color2}
                                 onPress={() => this.changeBgColor(this.colors.Purple)}>
                             </TouchableOpacity>
                             <TouchableOpacity
+                                accessibility={true}
+                                accessibilityLabel='Blue'
                                 style={styles.color3}
                                 onPress={() => this.changeBgColor(this.colors.Blue)}>
                             </TouchableOpacity>
@@ -69,13 +77,15 @@ export default class Start extends React.Component {
                                 onPress={() => this.changeBgColor(this.colors.Gray)}>
                             </TouchableOpacity>
                         </View>
-                        <Button
-                            title='Start Chatting'
+                        <Pressable
+                            style={styles.startButton}
                             onPress={() => this.props.navigation.navigate('Chat', {
                                 name: this.state.name,
-                                bgColor: this.state.bgColor
+                                bgColor: this.state.bgColor,
                             })}
-                        />
+                        >
+                            <Text>Start Chatting</Text>
+                        </Pressable>
                     </View>
                 </ImageBackground>
 
@@ -83,6 +93,8 @@ export default class Start extends React.Component {
         )
     }
 }
+
+
 const styles = StyleSheet.create({
 
     container: {
@@ -94,8 +106,6 @@ const styles = StyleSheet.create({
         width: '70%',
         justifyContent: 'space-around',
         alignItems: 'center',
-
-
     },
     backgroundImage: {
         flex: 1,
@@ -103,6 +113,14 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
 
+    },
+    startButton: {
+        height: 48,
+        width: '50%',
+        backgroundColor: '#d2ffff',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 24,
     },
     nameInput: {
         borderColor: 'grey',
@@ -115,7 +133,9 @@ const styles = StyleSheet.create({
     input: {
         fontSize: 17,
         paddingTop: 10,
-        textAlign: 'center'
+        textAlign: 'center',
+        height: 48,
+        color: '#000'
     },
     chooseColor: {
         fontWeight: '900'
