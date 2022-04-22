@@ -28,7 +28,7 @@ export default class Chat extends React.Component {
                 },
                 {
                     _id: 2,
-                    text: 'This is a system message',
+                    text: `Welcome to Obi-Chat!`,
                     createdAt: new Date(),
                     system: true,
                 },
