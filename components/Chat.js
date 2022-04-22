@@ -43,7 +43,7 @@ export default class Chat extends React.Component {
         }))
     }
 
-    //function to edit bubble
+    //function to edit bubble (backgroundColor for now)
     renderBubble(props) {
         return (
             <Bubble
