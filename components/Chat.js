@@ -11,6 +11,19 @@ export default class Chat extends React.Component {
         this.state = {
             messages: [],
         }
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyDW87P7jvztJ-mrumQJsoVROTz6DTOg8dw",
+            authDomain: "obichat-4a6bc.firebaseapp.com",
+            projectId: "obichat-4a6bc",
+            storageBucket: "obichat-4a6bc.appspot.com",
+            messagingSenderId: "707201180125",
+            appId: "1:707201180125:web:58fdc0ec9abc07977a9634",
+            measurementId: "G-N3M52XY5ML"
+        };
+
     }
 
     componentDidMount() {
