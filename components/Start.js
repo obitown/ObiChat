@@ -29,7 +29,7 @@ export default class Start extends React.Component {
 
 
     render() {
-        this.props.navigation.setOptions({ title: 'Welcome To Obi-Chat' });
+        // this.props.navigation.setOptions({ title: 'Welcome To Obi-Chat' });
         return (
             <View style={styles.container}>
                 <ImageBackground

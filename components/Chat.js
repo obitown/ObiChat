@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Platform, KeyboardAvoidingView } from 'react-native'
+import { View, Platform, KeyboardAvoidingView, DatePickerAndroid } from 'react-native'
 
 //import GiftedChat
 import { GiftedChat, Bubble } from "react-native-gifted-chat";
@@ -21,7 +21,7 @@ export default class Chat extends React.Component {
                 avatar: '',
 
             },
-            isConnected: false,
+            // isConnected: false,
         };
 
         // Your web app's Firebase configuration
@@ -45,29 +45,33 @@ export default class Chat extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({
-            messages: [
-                // {
-                //     _id: 1,
-                //     text: 'Hello developer',
-                //     createdAt: new Date(),
-                //     user: {
-                //         _id: 2,
-                //         name: 'React Native',
-                //         avatar: 'https://placeimg.com/140/140/any'
-                //     },
-                // },
-                {
-                    _id: 2,
-                    text: `Welcome to Obi-Chat!`,
-                    createdAt: new Date(),
-                    system: true,
-                },
-            ],
-        })
-
         this.referenceChatMessages = firebase.firestore().collection('messages');
         this.unsubscribe = this.referenceChatMessages.onSnapshot(this.onCollectionUpdate);
+
+        this.authUnsubscribe = firebase.auth().onAuthStateChanged
+            ((user) => {
+                if (!user) {
+                    firebase.auth().signInAnonymously();
+                }
+                this.setState({
+                    uid: user.uid,
+                    message: [],
+                    user: {
+                        _id: user.uid,
+                        name: name,
+
+                    }
+                })
+
+                this.refMsgsUser = firebase
+                    .firestore()
+                    .collection('messages')
+                    .where('uid', '==', this.state.uid)
+
+                this.unsubscribe = this.referenceChatMessages
+                    .orderBy('createdAt', 'desc')
+                    .onSnapshot(this.onCollectionUpdate);
+            })
 
     }
 
@@ -106,7 +110,10 @@ export default class Chat extends React.Component {
                 _id: data._id,
                 text: data.text,
                 createdAt: data.createdAt.toDate(),
-                user: data.user,
+                user: {
+                    _id: data.user._id,
+                    name: data.user.name,
+                }
             });
         });
         this.setState({
@@ -132,8 +139,8 @@ export default class Chat extends React.Component {
     }
 
     render() {
-        let name = this.props.route.params.name;
-        this.props.navigation.setOptions({ title: name });
+        // let name = this.props.route.params.name;
+        // this.props.navigation.setOptions({ title: name });
 
         const { bgColor } = this.props.route.params
         return (
