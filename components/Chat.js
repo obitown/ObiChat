@@ -59,7 +59,7 @@ export default class Chat extends React.Component {
                     user: {
                         _id: user.uid,
                         name: name,
-                        avatar: 'https://placeimg.com/140/140/any'
+                        avatar: 'https://placeimg.com/140/140/animals'
                     }
                 })
 
@@ -129,7 +129,7 @@ export default class Chat extends React.Component {
                         backgroundColor: '#0008ff'
                     },
                     left: {
-                        backgroundColor: '#9e9e9e'
+                        backgroundColor: '#fff'
                     }
                 }}
             />
