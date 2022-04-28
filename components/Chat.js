@@ -7,6 +7,7 @@ import { GiftedChat, Bubble } from "react-native-gifted-chat";
 //import Firebase V7.9.0
 const firebase = require('firebase');
 require('firebase/firestore');
+require('firebase/auth')
 
 
 export default class Chat extends React.Component {
@@ -19,9 +20,7 @@ export default class Chat extends React.Component {
                 _id: '',
                 name: '',
                 avatar: '',
-
             },
-            // isConnected: false,
         };
 
         // Your web app's Firebase configuration
@@ -42,11 +41,11 @@ export default class Chat extends React.Component {
 
         this.referenceChatMessages = firebase.firestore().collection('messages');
 
+        this.referenceChatMessagesUser = null
     }
 
     componentDidMount() {
-        this.referenceChatMessages = firebase.firestore().collection('messages');
-        this.unsubscribe = this.referenceChatMessages.onSnapshot(this.onCollectionUpdate);
+        const name = this.props.route.params.name;
 
         this.authUnsubscribe = firebase.auth().onAuthStateChanged
             ((user) => {
@@ -59,11 +58,11 @@ export default class Chat extends React.Component {
                     user: {
                         _id: user.uid,
                         name: name,
-
+                        avatar: 'https://placeimg.com/140/140/any'
                     }
                 })
 
-                this.refMsgsUser = firebase
+                this.referenceChatMessagesUser = firebase
                     .firestore()
                     .collection('messages')
                     .where('uid', '==', this.state.uid)
@@ -77,6 +76,7 @@ export default class Chat extends React.Component {
 
     componentWillUnmount() {
         this.unsubscribe();
+        this.authUnsubscribe();
     }
 
     //function to send messages
@@ -110,10 +110,7 @@ export default class Chat extends React.Component {
                 _id: data._id,
                 text: data.text,
                 createdAt: data.createdAt.toDate(),
-                user: {
-                    _id: data.user._id,
-                    name: data.user.name,
-                }
+                user: data.user
             });
         });
         this.setState({
@@ -157,8 +154,9 @@ export default class Chat extends React.Component {
                         messages={this.state.messages}
                         onSend={messages => this.onSend(messages)}
                         user={{
-                            _id: 1,
-                            user: this.state.name,
+                            _id: this.state.user._id,
+                            name: this.state.name,
+                            avatar: this.state.user.avatar
                         }}
                     />
                     {Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null}
