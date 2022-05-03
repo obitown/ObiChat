@@ -53,37 +53,39 @@ export default class Chat extends React.Component {
         NetInfo.fetch().then(connection => {
             if (connection.isConnected) {
                 console.log('online')
-            } else {
-                console.log('offline')
-            }
-        })
-
-        this.authUnsubscribe = firebase.auth().onAuthStateChanged
-            ((user) => {
-                if (!user) {
-                    firebase.auth().signInAnonymously();
-                }
-                this.setState({
-                    uid: user.uid,
-                    message: [],
-                    user: {
-                        _id: user.uid,
-                        name: name,
-                        avatar: 'https://placeimg.com/140/140/animals'
-                    }
-                })
-
-                this.referenceChatMessagesUser = firebase
-                    .firestore()
-                    .collection('messages')
-                    .where('uid', '==', this.state.uid)
 
                 this.unsubscribe = this.referenceChatMessages
                     .orderBy('createdAt', 'desc')
                     .onSnapshot(this.onCollectionUpdate);
-            })
-        this.getMessages();
 
+                this.authUnsubscribe = firebase.auth().onAuthStateChanged
+                    ((user) => {
+                        if (!user) {
+                            firebase.auth().signInAnonymously();
+                        }
+                        this.setState({
+                            uid: user.uid,
+                            message: [],
+                            user: {
+                                _id: user.uid,
+                                name: name,
+                                avatar: 'https://placeimg.com/140/140/animals'
+                            }
+                        })
+
+                        this.referenceChatMessagesUser = firebase
+                            .firestore()
+                            .collection('messages')
+                            .where('uid', '==', this.state.uid)
+                    })
+
+                this.saveMessages();
+
+            } else {
+                console.log('offline')
+                this.getMessages();
+            }
+        })
     }
 
     componentWillUnmount() {
