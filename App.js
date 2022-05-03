@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 //import Screens
 import Start from './components/Start';
@@ -24,6 +24,7 @@ export default class HelloWorld extends React.Component {
           <Stack.Screen
             name='Start'
             component={Start}
+            options={{ title: 'Welcome To Obi-Chat' }}
           />
           <Stack.Screen
             name='Chat'
@@ -34,7 +35,3 @@ export default class HelloWorld extends React.Component {
     );
   }
 }
-
-// const styles = StyleSheet.create({
-
-// });
