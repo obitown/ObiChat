@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 
+
+
 export default class CustomActions extends React.Component {
 
     onActionPress = () => {
@@ -23,17 +25,20 @@ export default class CustomActions extends React.Component {
                 switch (buttonIndex) {
                     case 0:
                         console.log('user wants to pick an image');
-                        return this.pickImage();
+                        return
                     case 1:
                         console.log('user wants to take a photo');
-                        return /*this.takePhoto();*/
+                        return
                     case 2:
                         console.log('user wants to get their location');
-                    default:
+                        return
                 }
             },
         );
     };
+
+
+
 
     render() {
         return (
@@ -48,6 +53,9 @@ export default class CustomActions extends React.Component {
             </TouchableOpacity>
         )
     }
+}
+CustomActions.contextTypes = {
+    actionSheet: PropTypes.func,
 }
 
 const styles = StyleSheet.create({
@@ -72,6 +80,3 @@ const styles = StyleSheet.create({
     }
 })
 
-CustomActions.contextType = {
-    actionSheet: PropTypes.func,
-}
