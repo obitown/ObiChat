@@ -6,6 +6,8 @@ import NetInfo from '@react-native-community/netinfo';
 //import GiftedChat
 import { GiftedChat, Bubble, InputToolbar } from "react-native-gifted-chat";
 
+import CustomActions from './CustomActions'
+
 //import Firebase V7.9.0
 const firebase = require('firebase');
 require('firebase/firestore');
@@ -24,6 +26,7 @@ export default class Chat extends React.Component {
                 avatar: '',
             },
             isConnected: false,
+            image: null
         };
 
         // Your web app's Firebase configuration
@@ -198,6 +201,10 @@ export default class Chat extends React.Component {
         }
     }
 
+    renderCustomActions = (props) => {
+        return <CustomActions {...props} />;
+    };
+
     render() {
         // let name = this.props.route.params.name;
         // this.props.navigation.setOptions({ title: name });
@@ -213,6 +220,7 @@ export default class Chat extends React.Component {
             >
                 <View style={{ flex: 1 }}>
                     <GiftedChat
+                        renderActions={this.renderCustomActions}
                         renderUsernameOnMessage={true}
                         renderBubble={this.renderBubble.bind(this)}
                         renderInputToolbar={this.renderInputToolbar.bind(this)}
