@@ -23,6 +23,7 @@ export default class Chat extends React.Component {
                 name: '',
                 avatar: '',
             },
+            isConnected: false,
         };
 
         // Your web app's Firebase configuration
@@ -52,6 +53,7 @@ export default class Chat extends React.Component {
 
         NetInfo.fetch().then(connection => {
             if (connection.isConnected) {
+                this.setState({ isConnected: true });
                 console.log('online')
 
                 this.unsubscribe = this.referenceChatMessages
@@ -83,6 +85,7 @@ export default class Chat extends React.Component {
 
             } else {
                 console.log('offline')
+                this.setState({ isConnected: false });
                 this.getMessages();
             }
         })
