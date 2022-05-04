@@ -49,14 +49,14 @@ export default class CustomActions extends React.Component {
             };
             xhr.onerror = function (e) {
                 console.log(e);
-                reject(new TypeError('network request failed'));
+                reject(new TypeError("Network request failed"));
             };
-            xhr.responseType = 'blob';
-            xhr.open('GET', uri, true);
+            xhr.responseType = "blob";
+            xhr.open("GET", uri, true);
             xhr.send(null);
-        })
+        });
 
-        const imageNameBefore = uri.split('/');
+        const imageNameBefore = uri.split("/");
         const imageName = imageNameBefore[imageNameBefore.length - 1];
 
         const ref = firebase.storage().ref().child(`images/${imageName}`);
@@ -66,7 +66,7 @@ export default class CustomActions extends React.Component {
         blob.close();
 
         return await snapshot.ref.getDownloadURL();
-    }
+    };
 
     pickImage = async () => {
         const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
