@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import * as Permissions from 'expo-permissions';
+import * as ImagePicker from 'expo-image-picker'
 
 
 
@@ -25,20 +27,63 @@ export default class CustomActions extends React.Component {
                 switch (buttonIndex) {
                     case 0:
                         console.log('user wants to pick an image');
-                        return
+                        return this.pickImage();
                     case 1:
                         console.log('user wants to take a photo');
-                        return
+                        return this.takePhoto();
                     case 2:
                         console.log('user wants to get their location');
-                        return
+                        return this.getLocation();
                 }
             },
         );
     };
 
+    pickImage = async () => {
+        const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
 
+        if (status === 'granted') {
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: 'Images',
+            }).catch(error => console.log(error));
 
+            if (!result.cancelled) {
+                this.setState({
+                    image: result
+                });
+            }
+        }
+    }
+
+    takePhoto = async () => {
+        const { status } = await Permissions.askAsync(Permissions.CAMERA);
+
+        if (status === 'granted') {
+            let result = await ImagePicker.launchCameraAsync({
+                mediaTypes: 'Images',
+            }).catch(error => console.log(error));
+
+            if (!result.cancelled) {
+                this.setState({
+                    image: result
+                });
+            }
+        }
+    }
+
+    getLocation = async () => {
+        const { status } = await Permissions.askAsync(Permissions.LOCATION);
+
+        if (status === 'granted') {
+            let result = await Location.getCurrentPositionAsync({})
+
+            if (result) {
+                this.setState({
+                    location: result
+                })
+            }
+        }
+    }
 
     render() {
         return (

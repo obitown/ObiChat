@@ -7,6 +7,7 @@ import NetInfo from '@react-native-community/netinfo';
 import { GiftedChat, Bubble, InputToolbar } from "react-native-gifted-chat";
 
 import CustomActions from './CustomActions'
+import MapView from "react-native-maps";
 
 //import Firebase V7.9.0
 const firebase = require('firebase');
@@ -26,7 +27,8 @@ export default class Chat extends React.Component {
                 avatar: '',
             },
             isConnected: false,
-            image: null
+            image: null,
+            location: null,
         };
 
         // Your web app's Firebase configuration
@@ -150,6 +152,8 @@ export default class Chat extends React.Component {
             text: message.text || '',
             createdAt: message.createdAt,
             user: this.state.user,
+            image: this.state.image,
+            location: this.state.location,
         });
     }
 
@@ -163,7 +167,9 @@ export default class Chat extends React.Component {
                 _id: data._id,
                 text: data.text,
                 createdAt: data.createdAt.toDate(),
-                user: data.user
+                user: data.user,
+                image: data.image,
+                location: data.location
             });
         });
         this.setState({
@@ -205,6 +211,29 @@ export default class Chat extends React.Component {
         return <CustomActions {...props} />;
     };
 
+    renderCustomView(props) {
+        const { currentMessage } = props;
+        if (currentMessage.location) {
+            return (
+                <MapView
+                    style={{
+                        width: 150,
+                        height: 100,
+                        borderRadius: 13,
+                        margin: 3
+                    }}
+                    region={{
+                        latitude: currentMessage.location.latitude,
+                        longitude: currentMessage.location.longitude,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
+                    }}
+                />
+            );
+        }
+        return null;
+    }
+
     render() {
         // let name = this.props.route.params.name;
         // this.props.navigation.setOptions({ title: name });
@@ -221,6 +250,7 @@ export default class Chat extends React.Component {
                 <View style={{ flex: 1 }}>
                     <GiftedChat
                         renderActions={this.renderCustomActions}
+                        renderCustomView={this.renderCustomView}
                         renderUsernameOnMessage={true}
                         renderBubble={this.renderBubble.bind(this)}
                         renderInputToolbar={this.renderInputToolbar.bind(this)}
