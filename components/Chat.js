@@ -153,7 +153,7 @@ export default class Chat extends React.Component {
             createdAt: message.createdAt,
             user: this.state.user,
             image: this.state.image,
-            location: this.state.location,
+            location: message.location,
         });
     }
 
@@ -169,7 +169,7 @@ export default class Chat extends React.Component {
                 createdAt: data.createdAt.toDate(),
                 user: data.user,
                 image: data.image,
-                location: data.location
+                location: data.location || null
             });
         });
         this.setState({

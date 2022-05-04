@@ -2,8 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 import * as Permissions from 'expo-permissions';
-import * as ImagePicker from 'expo-image-picker'
+import * as ImagePicker from 'expo-image-picker';
+import * as Location from 'expo-location';
 import firebase from 'firebase';
+import 'firebase/firestore'
 
 export default class CustomActions extends React.Component {
 
@@ -36,9 +38,10 @@ export default class CustomActions extends React.Component {
                 }
             },
         );
+
     };
 
-    uploadImageFetch = async (uri) => {
+    uploadImage = async (uri) => {
         const blob = await new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             xhr.onload = function () {
@@ -71,7 +74,9 @@ export default class CustomActions extends React.Component {
         if (status === 'granted') {
             let result = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: 'Images',
-            }).catch(error => console.log(error));
+            }).catch((error) => {
+                console.log(error);
+            })
 
             if (!result.cancelled) {
                 const imageUrl = await this.uploadImage(result.uri);
