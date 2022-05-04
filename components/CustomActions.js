@@ -3,8 +3,7 @@ import React from 'react';
 import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker'
-
-
+import firebase from 'firebase';
 
 export default class CustomActions extends React.Component {
 
@@ -39,6 +38,33 @@ export default class CustomActions extends React.Component {
         );
     };
 
+    uploadImageFetch = async (uri) => {
+        const blob = await new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                resolve(xhr.response);
+            };
+            xhr.onerror = function (e) {
+                console.log(e);
+                reject(new TypeError('network request failed'));
+            };
+            xhr.responseType = 'blob';
+            xhr.open('GET', uri, true);
+            xhr.send(null);
+        })
+
+        const imageNameBefore = uri.split('/');
+        const imageName = imageNameBefore[imageNameBefore.length - 1];
+
+        const ref = firebase.storage().ref().child(`images/${imageName}`);
+
+        const snapshot = await ref.put(blob);
+
+        blob.close();
+
+        return await snapshot.ref.getDownloadURL();
+    }
+
     pickImage = async () => {
         const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
 
@@ -48,9 +74,8 @@ export default class CustomActions extends React.Component {
             }).catch(error => console.log(error));
 
             if (!result.cancelled) {
-                this.setState({
-                    image: result
-                });
+                const imageUrl = await this.uploadImage(result.uri);
+                this.props.onSend({ image: imageUrl });
             }
         }
     }
