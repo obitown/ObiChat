@@ -16,17 +16,17 @@ With Obi-Chat, users are able to log in with a username and send messages with o
 
 # Installation
 
-## Required
+### Required
 - Node.js
 - npm
 - Android/IOS phone or Emulator (with Expo Go)
 
-## How to install required packages
+### How to install required packages
 - Download this repository
 - Navigate to root directory of project in Powershell(windows) or Terminal(mac)
 - Run 'npm install'
 
-## How to run
+### How to run
 - While on root directory of project in Powershell/Terminal
 - Run 'expo start'
 - Scan the QR code with Expo Go -or- Run on Emulator
