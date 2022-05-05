@@ -1,11 +1,32 @@
-# Sample Snack app
+# Obi-Chat
+With Obi-Chat, users are able to log in with a username and send messages with other users. It also allows users the abbility to share their locataion with Google Maps or Share an Image. This app also allows the users access to the Database while offline.
 
-Open the `App.js` file to start writing some code. You can preview the changes directly on your phone or tablet by scanning the **QR code** or use the iOS or Android emulators. When you're done, click **Save** and share the link!
+# Key Features
+- Users can select a Username, and the abilty to change their background color between 4 different colors.
+-The user is be able to send messages to any other user.
+-The user can also send an image or their location to other users.
+-All the messages are saved to provide the user with offline visability.
 
-When you're ready to see everything that Expo provides (or if you want to use your own editor) you can **Download** your project and use it with [expo-cli](https://docs.expo.io/get-started/installation).
+# Tech
+-React Native
+-Expo
+-Google Firebase
+-Gifted Chat
+-PWA (Progressive Web Apps)
 
-All projects created in Snack are publicly available, so you can easily share the link to this project via link, or embed it on a web page with the `<>` button.
+# Installation
 
-If you're having problems, you can tweet to us [@expo](https://twitter.com/expo) or ask in our [forums](https://forums.expo.io/c/snack).
+## Required
+-Node.js
+-npm
+-Android/IOS phone or Emulator (with Expo Go)
 
-Snack is Open Source. You can find the code on the [GitHub repo](https://github.com/expo/snack).
+## How to install required packages
+-Download this repository
+-Navigate to root directory of project in Powershell(windows) or Terminal(mac)
+-Run 'npm install'
+
+## How to run
+-While on root directory of project in Powershell/Terminal
+-Run 'expo start'
+-Scan the QR code with Expo Go -or- Run on Emulator
